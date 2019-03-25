@@ -1,6 +1,6 @@
 # Creating Database and API
 
-This documentation is a supplement to the YouTube Video on how to create a Database on Azure and an API on ASP.NET Core. If you are confident with your ability to code, feel free to watch the video in 2x speed or just read the documentation alone :)
+This documentation is a supplement to the YouTube Video on how to create a Database on Azure and an API on ASP.NET Core. If you are confident with your ability to code, feel free to watch the video in 2x speed or just read the documentation by itself. :)
 
 ### Contents
 1. Before you start
@@ -32,7 +32,7 @@ For the sake of this tutorial, we will be making a school management system that
 
 Before we even start to write a line of code, we need to think about what we would like to store in our database and what properties we want our API to return. This is crucial because the cost of modifying an existing database is very high.
 
-In phase 1 we will only be focusing on one table, keep an eye out on phase 2 for more exciting stuff such as database normalisation concepts and relational models!
+In phase 1 we will only focus on creating one table, keep an eye out on phase 2 for more exciting stuff such as database normalisation concepts and relational models!
  
 <!-- We need to then explicitly define this. Generally speaking there are some common properties such as ID, which present in all Models.  -->
  
@@ -47,7 +47,7 @@ In phase 1 we will only be focusing on one table, keep an eye out on phase 2 for
  * Email Address
  * Date Created
 
- Aside from field names, we also need to consider their types. For example, it is normal to store *id* as integers, but it doesn't make sense to only allow numbers to be stored im the *name* fields. 
+ Aside from field names, we also need to consider their types. For example, it is normal to store *id* as integers, but it doesn't make sense to only allow numbers to be stored in the *name* fields. 
  
 There are many data types available in SQL, the ones we will be using are:
  * VARCHAR
@@ -64,13 +64,25 @@ There are many data types available in SQL, the ones we will be using are:
 ---
 **NOTE**
 
-This diagram look redundant/hollow for now as there is only one table, but creating the diagram before you code it will benefit you when you have many relational models which would get heinously complicated very quickly.
+This diagram may look redundant/hollow as of now because there is only one table, but creating the diagram before you code will really benefit you when you have many relational models which would get heinously complicated very quickly.
 
 ---
 
 Noticed how the fields have the same naming convention? Each word is separated with underscore. Having the same naming convention would add consistency throughout the database.
 
-
+---
+TO BE WORKED ON
+```
+CREATE TABLE [students]
+(
+    id INT NOT NULL IDENTITY(1, 1) PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    phone_number VARCHAR(20),
+    email VARCHAR(50),
+    date_created TIMESTAMP
+);
+```
  
 
  meme which is being uploaded. Things such as the image title, its URL, any tags (to group similar memes together), the uploaded date and time, and its width and height. Your project may or may not require all these fields or may even need additional ones.
