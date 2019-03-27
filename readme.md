@@ -23,6 +23,10 @@ There are a few items you will need to have prior to commencing this tutorial.
 * Azure Account with active subscription (You can just sign up for a new account for subscription)
 * .NET Core 2.1 SDK or later
 * Postman
+* <a href="https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest">Azure command line (CLI)</a>
+* <a href="https://dotnet.microsoft.com/download/visual-studio-sdks">DOTNET Core 2.2</a>
+* Don't forget to restart your computer after you've installed all the softwares
+
 
 ## 1.1 Context
 
@@ -45,6 +49,7 @@ In phase 1 we will only focus on creating one table, keep an eye out on phase 2 
  * Last Name
  * Phone Number
  * Email Address
+ * DOB (Date of birth)
  * Date Created
 
  Aside from field names, we also need to consider their types. For example, it is normal to store *id* as integers, but it doesn't make sense to only allow numbers to be stored in the *name* fields. 
@@ -52,7 +57,7 @@ In phase 1 we will only focus on creating one table, keep an eye out on phase 2 
 There are many data types available in SQL, the ones we will be using are:
  * VARCHAR
  * INT
- * TIMESTAMP
+ * DATE
 
  >You can read more about data types on 
  https://www.w3schools.com/sql/sql_datatypes.asp
@@ -70,6 +75,73 @@ This diagram may look redundant/hollow as of now because there is only one table
 
 Noticed how the fields have the same naming convention? Each word is separated with underscore. Having the same naming convention would add consistency throughout the database.
 
+## 3. Azure SQL Database
+Now that we have finished planning for the database, we can actually create it on Azure portal!
+
+Make sure you have an active subscription, navigate to https://portal.azure.com on your browser and search for a new service resource called "SQL databases"
+ ![image](img/MSAMSMAMS/sqlService.PNG)
+
+ Then click on Add then follow the structure below
+  ![image](img/MSAMSMAMS/createDB.PNG)
+
+  When you are creating a new server, choose a sensible server name and note down your database admin login and password, we will need to use it later. Choose Australis Southeast Location as it is physically closest to us.
+  ![image](img/MSAMSMAMS/newRS.PNG)
+
+  When it comes to choosing Compute + storage, select the free/cheapest option
+  ![image](img/MSAMSMAMS/configureServer.PNG)
+
+  When you are done, cliD on Review + create then your deployment sDuld be underway!
+
+  In about 2 minutes, yoDshould see the following notificationD
+  ![image](img/MSAMSMAMS/deploymentDone.PNG)
+
+  Now that the database is created, we shall create the table we've designed earlier in the database. Click on your new SQL Database resource
+  ![image](img/MSAMSMAMS/viewResource.PNG)
+
+  From the tool bar on the left, choose Query Editor.
+  ![image](img/MSAMSMAMS/queryEditor.PNG)
+  
+  Remember your database admin login and password? Pop those in.
+
+  We are now going to use standard SQL statement to create a new table (notice how similar this SQL statement is compared to the design we did on dbDiagram?):
+  ```
+    CREATE TABLE [students]
+    (
+        id INT NOT NULL IDENTITY(1, 1) PRIMARY KEY,
+        first_name VARCHAR(50),
+        last_name VARCHAR(50),
+        phone_number VARCHAR(20),
+        email VARCHAR(50),
+        dob DATE,
+        date_created DATE
+    );
+  ```
+
+  Hit the Run button then you should see the following message:
+  ![image](img/MSAMSMAMS/createTable.PNG)
+
+  Our database is basically done. We just need to do two more things to allow us to access the database from anywhere.
+
+  Go back to Overview and hit "Set server firewall"
+  ![image](img/MSAMSMAMS/serverFirewall.PNG)
+  Add the following firewall rule to enable access to the database from any IP address.
+  ![image](img/MSAMSMAMS/firewallRule.PNG)
+  Then hit Save.
+
+  One more thing. 
+  Choose Connection Strings from the toolbar and copy ADO.NET connection string, we will use this to scaffold the database when we are creating the API.
+  ![image](img/MSAMSMAMS/connectionString.PNG)
+
+  Now we are ready to go to the next phase.
+
+## 4. Create the API using .NET Core
+
+
+
+
+
+
+
 ---
 TO BE WORKED ON
 ```
@@ -80,7 +152,8 @@ CREATE TABLE [students]
     last_name VARCHAR(50),
     phone_number VARCHAR(20),
     email VARCHAR(50),
-    date_created TIMESTAMP
+    dob DATE,
+    date_created DATE
 );
 ```
  
