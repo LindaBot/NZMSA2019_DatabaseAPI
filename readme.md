@@ -64,7 +64,7 @@ There are many data types available in SQL, the ones we will be using are:
 
  After we confirm on what we need to store, we shall model this out. 
 
- ![image](img/MSAMSMAMS/dbDiagram.PNG)
+ <br/>![image](img/MSAMSMAMS/dbDiagram.PNG)
 
 ---
 **NOTE**
@@ -79,27 +79,27 @@ Noticed how the fields have the same naming convention? Each word is separated w
 Now that we have finished planning for the database, we can actually create it on Azure portal!
 
 Make sure you have an active subscription, navigate to https://portal.azure.com on your browser and search for a new service resource called "SQL databases"
- ![image](img/MSAMSMAMS/sqlService.PNG)
+ <br/>![image](img/MSAMSMAMS/sqlService.PNG)
 
  Then click on Add then follow the structure below
-  ![image](img/MSAMSMAMS/createDB.PNG)
+  <br/>![image](img/MSAMSMAMS/createDB.PNG)
 
   When you are creating a new server, choose a sensible server name and note down your database admin login and password, we will need to use it later. Choose Australis Southeast Location as it is physically closest to us.
-  ![image](img/MSAMSMAMS/newRS.PNG)
+  <br/>![image](img/MSAMSMAMS/newRS.PNG)
 
   When it comes to choosing Compute + storage, select the free/cheapest option
-  ![image](img/MSAMSMAMS/configureServer.PNG)
+  <br/>![image](img/MSAMSMAMS/configureServer.PNG)
 
-  When you are done, cliD on Review + create then your deployment sDuld be underway!
+  When you are done, click on Review + create then your deployment should be underway!
 
-  In about 2 minutes, yoDshould see the following notificationD
-  ![image](img/MSAMSMAMS/deploymentDone.PNG)
+  In about 2 minutes, you should see the following notification
+  <br/>![image](img/MSAMSMAMS/deploymentDone.PNG)
 
   Now that the database is created, we shall create the table we've designed earlier in the database. Click on your new SQL Database resource
-  ![image](img/MSAMSMAMS/viewResource.PNG)
+  <br/>![image](img/MSAMSMAMS/viewResource.PNG)
 
   From the tool bar on the left, choose Query Editor.
-  ![image](img/MSAMSMAMS/queryEditor.PNG)
+  <br/>![image](img/MSAMSMAMS/queryEditor.PNG)
   
   Remember your database admin login and password? Pop those in.
 
@@ -118,23 +118,161 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
   ```
 
   Hit the Run button then you should see the following message:
-  ![image](img/MSAMSMAMS/createTable.PNG)
+  <br/>![image](img/MSAMSMAMS/createTable.PNG)
 
   Our database is basically done. We just need to do two more things to allow us to access the database from anywhere.
 
   Go back to Overview and hit "Set server firewall"
-  ![image](img/MSAMSMAMS/serverFirewall.PNG)
+  <br/>![image](img/MSAMSMAMS/serverFirewall.PNG)
   Add the following firewall rule to enable access to the database from any IP address.
-  ![image](img/MSAMSMAMS/firewallRule.PNG)
+  <br/>![image](img/MSAMSMAMS/firewallRule.PNG)
   Then hit Save.
 
   One more thing. 
   Choose Connection Strings from the toolbar and copy ADO.NET connection string, we will use this to scaffold the database when we are creating the API.
-  ![image](img/MSAMSMAMS/connectionString.PNG)
+  <br/>![image](img/MSAMSMAMS/connectionString.PNG)
 
   Now we are ready to go to the next phase.
 
-## 4. Create the API using .NET Core
+  ## 4. Create the API using .NET Core
+
+  ### Creating the base project
+  Open Visual Studio -> New Project -> Web -> .Net Core -> ASP.NET Core Web Application. 
+  <br/>Make sure you tick add to source control.
+
+  <br/>![image](img/MSAMSMAMS/newProject.PNG)
+
+  Select API and make sure your .Net Core version is 2.2
+  If you only see ASP.NET COre 2.1, download the ASP.NET Core 2.2 SDK as suggested in the beginning of the documentation.
+
+  <br/>![image](img/MSAMSMAMS/chooseAPI.PNG)
+
+  Once you hit OK, your project should be created. We now need to install a few dependencies so we can work with our SQL Server Database.
+  Navigate to the search bar on the top right and search for "Nuget" then select manage nuget package
+
+  <br/>![image](img/MSAMSMAMS/chooseNuget.PNG)
+
+  Click on Browse and search for
+  ``` Microsoft.EntityFrameworkCore.SqlServer ```
+
+  <br/>![image](img/MSAMSMAMS/nugetPackage.PNG)
+
+  Hit install then do the same for  ``` Microsoft.EntityFrameworkCore.Design ```
+
+  We have everything we need to work with the database, now we can "Scaffold" the database.
+  # Insert explaination for Scaffold
+  Open up Package Manager Console. (If you can't find it, remember to use the search bar on the top right) 
+  ```
+  Scaffold-DbContext "YOURCONNECTIONSTRING" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Model -Context "schoolSISContext" -DataAnnotations
+  ```
+  Replace **YOURCONNECTIONSTRING** to the connection string you've retrieved from Azure.<br/>
+  Paste the code in the console and execute it.
+
+  In the Solution Explorer, you can see that there are two files being created through the scaffold command.
+  
+  ```schoolSISContext.cs``` represents a session with the underlying database. You can read more on <a href="https://docs.microsoft.com/en-us/dotnet/api/system.data.entity.dbcontext?view=entity-framework-6.2.0">DbContext Class</a>
+
+  ```Students.cs``` is the class created from the design of the database table, think of it like the blueprint for a student object. Whenever we create a student, it will have those fields/variables listed in the Students class.
+
+  We now have the blueprint for a student, we can use this blueprint to create a controller so we can interact with the database with HTTP requests. <a href="https://docs.microsoft.com/en-us/aspnet/web-api/overview/getting-started-with-aspnet-web-api/tutorial-your-first-web-api#adding-a-controller">Read more about controllers here</a>
+
+  Right click on controllers from the Solution Explorer - ```Add - New Scaffold item...```
+
+  <br/>![image](img/MSAMSMAMS/addScaffoldItem.png)
+
+  Choose ```API Controller with actions, using Entity Framework```
+  <br/>![image](img/MSAMSMAMS/scaffoldControllerUsingEF.png)
+
+  Choose Students in Model class, schoolSISContext as Data context class and controller name should be auto completed.
+  <br/>![image](img/MSAMSMAMS/editController.png)
+
+  Hit add and wait for Visual Studio to do its magic.
+
+  Once done, you should notice the new file ```StudentsControllers.cs```
+  This controller allows us to Create/Read/Update/Delete (This is called CRUD, the four basic functions of persistent storage) students from the database.
+
+  The API is almost done! Now we need to change the connection string so we can access the database with our credentials on Azure.<br/>
+  Open ```appsettings.json``` from the Solution Explorer and change the value of the context key to your connection string you've retrieved from Azure.
+  ```
+  {
+    "Logging": {
+        "LogLevel": {
+        "Default": "Warning"
+        }
+    },
+    "AllowedHosts": "*",
+    "ConnectionStrings": {
+        "schoolSISContext" : "YOURCONNECTIONSTRING"
+    }
+  }
+  ```
+
+  With that last change, Go ahead and start the API application with IIS Express in the tool bar. 
+  <br/>![image](img/MSAMSMAMS/IISExpress.png)</br>
+  Once IIS Express launches a browser, change the path from /values to /Students
+  <br/>![image](img/MSAMSMAMS/APIstudentsPath.png)<br/>
+  **Voilà, this is your first API!** This is not very exciting right now as there is no content stored in the database, but if you are able to see this, believe it or not, you've just created a fully functional API.
+
+  In order for us to interact with the API, we can use <a href="https://www.getpostman.com/">Postman</a> to make HTTPS requests, but that's boring and abstract when we are just starting out creating API. In order to have a visual representation of the API, let's install <a href="https://swagger.io/">Swagger</a>
+
+  > Swagger helps developers design, build, document, and consume RESTful Web services.
+
+  Open Manage nuget packages from Visual studio as before, go to Browser and search for `Swashbuckle.AspNetCore` and hit install.
+  <br/>![image](img/MSAMSMAMS/SwaggerNuGet.png)<br/>
+
+  Then add the following code to the bottom of the ConfigureServices method in ``Startup.cs``:
+
+  ```
+    // Register the Swagger generator, defining 1 or more Swagger documents
+    services.AddSwaggerGen(c =>
+    {
+        c.SwaggerDoc("v1", new Info { Title = "SchoolSIS", Version = "v1" });
+    });
+  ```
+
+  Next add the following to the ``Configure`` method in ``startup.cs`` file.
+
+  ```
+    // Enable middleware to serve generated Swagger as a JSON endpoint.
+    app.UseSwagger();
+
+    // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
+    // specifying the Swagger JSON endpoint.
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "School SIS API V1");
+        c.RoutePrefix = string.Empty; // launch swagger from root
+    });
+  ```
+  Now your ``startup.cs`` file should look like this
+  <br/>![image](img/MSAMSMAMS/StartupCS.png)<br/>
+
+  The last step before seeing an Swagger UI for the API is to edit the launch path.
+  Go to Properties in the Solution Explorer and open `launchSettings.json`.
+  Change all occurrences of 
+  ```
+   "launchUrl": "api/Values"
+  ```
+  to 
+  ```
+   "launchUrl": ""
+  ```
+  This will open up Swagger UI upon launch.
+  
+
+  
+
+Now back in launchSettings.json, change `"launchUrl": "api/meme"` to `"launchUrl": ""`. This will open root when we launch our project, which is what we have configured swagger to run from.
+
+
+
+
+
+
+  
+
+  
+
 
 
 
@@ -184,19 +322,19 @@ Open Visual Studio -> New Project -> Web -> .Net Core -> ASP.NET Core Web Applic
  
  Give your project a name, and note the location its being created at.
 
-![image](img/1.PNG)
+<br/>![image](img/1.PNG)
  
 
  Select API and press OK
 
-![image](img/2.PNG)
+<br/>![image](img/2.PNG)
 
  After its finished creating the project, your solution explorer should look something like:
 
- ![image](img/3.PNG)
+ <br/>![image](img/3.PNG)
 
  Let's go ahead and run this. Note: you'll likely get this message pop up
-  ![image](img/4.PNG)
+  <br/>![image](img/4.PNG)
   Because earlier we selected HTTPS, its configured to use SSL, and so we need to trust the self-signed cert for this to work. Select "Dont ask me again" and press Yes, and Yes again.
 
  A internet browser should have launched and it should display: 
@@ -213,7 +351,7 @@ Open Visual Studio -> New Project -> Web -> .Net Core -> ASP.NET Core Web Applic
  Go to the website, enter in the json, and press Generate. This will create a pojo which we can copy.
 
   * Back in Visual Studio, right click the Project  Add -> New Folder. 
-  ![image](img/5.PNG)
+  <br/>![image](img/5.PNG)
   * Name it Models.
   * Right click and Add new Item - Class. Name it whatever you're modeling. In this case our model is of a meme object, so we'll call it MemeItem.class
 * Now within the inner curly braces we'll paste our code from json2csharp.com Note - we dont want to copy `public class RootObject` or the curly braces
@@ -245,7 +383,7 @@ Now on to the magic! As this is an MVC project, we have something called Scaffol
 Right click on the Controllers folder - Add -> new scaffolded Item. Select API (on the left) then select "API Controller with actions, using Entity Framework". Press Add
 
 In the model class, select the model we just added (MemeItem) It will auto populate the controller name. Change this to MemeController. Finally for Data context class, press the plus button and select Add. Press Add again.
-![image](img/7.PNG)
+<br/>![image](img/7.PNG)
 
 This does two main things. It add a MemeItemsController - this specifies the CRUD operations for our API - more on this later.
 
@@ -262,7 +400,7 @@ On to the database side of things. With our current project it uses sql server, 
 We'll need to add Sqlite support by adding a NuGet Package (Essentially a library). To do this, in Visual Studio right click your Solution in Solution Explorer and select Manage NuGet Pakages for Solution...
 
 In the opened tab, select Browse, and paste `Microsoft.EntityFrameworkCore.Sqlite` in the search bar. 
-![image](img/5a.PNG)
+<br/>![image](img/5a.PNG)
 
 Click the Package, check the tick box in for your project and click the install button. select I Agree and wait for the package to install.
 
@@ -459,7 +597,7 @@ We add this code change in our controller as below:
         }
 ```
 
-![image](img/8.PNG)
+<br/>![image](img/8.PNG)
 
 The LINQ is ` var memes = (from m in _context.MemeItem select m.Tags).Distinct();` For those familiar with SQL, it has some similiarities. Basically from our list of meme items we want all the distinct tags.
 
@@ -487,7 +625,7 @@ So how do we search by meme tag? There are a couple things we need to do. Firstl
         }
 
 ```
-![image](img/8a.PNG)
+<br/>![image](img/8a.PNG)
 
 ### 7. Blob Storage
 
@@ -496,8 +634,8 @@ Due to the performance hit, its normally best to store images in a filesystem ra
 To create blob storage, head over to portal.azure.com and create a new resource search for "Storage account - blob, file, table, queue"
 
 Click create and fill in the details. Some things to note, local storage name needs to be unique. For location its best to choose Austrailia Southeast as its closer to us, and account kind as blob. Click review and create.
-![image](img/10.PNG)
-![image](img/11.PNG)
+<br/>![image](img/10.PNG)
+<br/>![image](img/11.PNG)
 
 Once created, click on "Go to Resource" and click on "Blobs" as per below.
 
@@ -505,15 +643,15 @@ Once created, click on "Go to Resource" and click on "Blobs" as per below.
 
 We need to create a container, which is like a logical grouping, for our images. Click on create and name your container images. Set the public access level to Container.
 
-![image](img/13.PNG)
+<br/>![image](img/13.PNG)
 
 Press the cross on thr right to close the container screen. On the left inner side menu there is a row with "Access Keys".
 
-![image](img/14.PNG)
+<br/>![image](img/14.PNG)
 
  Click on this and store all five fields. Ensure you keep the keys seperate. We will need to use this in our API.
 
-![image](img/15.PNG)
+<br/>![image](img/15.PNG)
 
 We've created our blob storage, now we need to edit our api to receive images and send them to our blob storage.
 
@@ -771,29 +909,29 @@ We have been running our API locally. This means it cant be access on the intern
 
 To do this go to portal.azure.com and create a new resource and select web app.
 
-![image](img/16.PNG)
+<br/>![image](img/16.PNG)
  Enter an app name (it must be unique) and select create.
-![image](img/17.PNG)
+<br/>![image](img/17.PNG)
 
 Once created go to the resource.
 
 On the inner left menu select deployment center. 
-![image](img/18.PNG)
+<br/>![image](img/18.PNG)
 
 Select github (here's hoping you've been committing to github!) Select continue. 
-![image](img/19.PNG)
+<br/>![image](img/19.PNG)
 
 On the following screen select App Service Kudu build server. Select continue. 
 
-![image](img/20.PNG)
+<br/>![image](img/20.PNG)
 Add in your branch and repo details. Select continue. Finally hit finish and wait for the deployment to finish running.
 
-![image](img/21.PNG)
-![image](img/22.PNG)
+<br/>![image](img/21.PNG)
+<br/>![image](img/22.PNG)
 
 You api should now be hosted! (You can find the url on the overview page of the webapp).
 
-![image](img/23.PNG)
+<br/>![image](img/23.PNG)
 
 Congrats you now have a working API on the internet!
 
@@ -801,4 +939,4 @@ Congrats you now have a working API on the internet!
 You will likely receieve a CORS error/warning if you attempt to use your newly published api in your web app front end. Cross-origin resource sharing (CORS) is a mechanism that allows restricted resources on a web page to be requested from another domain outside the domain from which the first resource was served. As your API and front end are hosted on different sites/urls, we need to enable CORS. You can be specific to only enable localhost and the url which you publish your front end, or you can allow any URL to access it. For this workshop we will enable all URLS to call our api. 
 
 In order to do this, we must go to the Azure portal and open the app service which our API is published on. Once there, on the inner left menu scroll down to the menu item CORS. Once opened, there will be an empty text box. Enter '*' (without the quotes). This will enable all the URLs. Now press save at the top. The CORS warning should now be gone.
-![image](img/24.PNG)
+<br/>![image](img/24.PNG)
