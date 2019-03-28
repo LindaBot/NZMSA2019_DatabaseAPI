@@ -178,13 +178,13 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
 
   Right click on controllers from the Solution Explorer - ```Add - New Scaffold item...```
 
-  <br/>![image](img/MSAMSMAMS/addScaffoldItem.png)
+  <br/>![image](img/MSAMSMAMS/addScaffoldItem.PNG)
 
   Choose ```API Controller with actions, using Entity Framework```
-  <br/>![image](img/MSAMSMAMS/scaffoldControllerUsingEF.png)
+  <br/>![image](img/MSAMSMAMS/scaffoldControllerUsingEF.PNG)
 
   Choose Students in Model class, schoolSISContext as Data context class and controller name should be auto completed.
-  <br/>![image](img/MSAMSMAMS/editController.png)
+  <br/>![image](img/MSAMSMAMS/editController.PNG)
 
   Hit add and wait for Visual Studio to do its magic.
 
@@ -208,9 +208,9 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
   ```
 
   With that last change, Go ahead and start the API application with IIS Express in the tool bar. 
-  <br/>![image](img/MSAMSMAMS/IISExpress.png)</br>
+  <br/>![image](img/MSAMSMAMS/IISExpress.PNG)</br>
   Once IIS Express launches a browser, change the path from /values to /Students
-  <br/>![image](img/MSAMSMAMS/APIstudentsPath.png)<br/>
+  <br/>![image](img/MSAMSMAMS/APIstudentsPath.PNG)<br/>
   **Voilà, this is your first API!** This is not very exciting right now as there is no content stored in the database, but if you are able to see this, believe it or not, you've just created a fully functional API.
 
   In order for us to interact with the API, we can use <a href="https://www.getpostman.com/">Postman</a> to make HTTPS requests, but that's boring and abstract when we are just starting out creating API. In order to have a visual representation of the API, let's install <a href="https://swagger.io/">Swagger</a>
@@ -218,7 +218,7 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
   > Swagger helps developers design, build, document, and consume RESTful Web services.
 
   Open Manage NuGet packages from Visual studio as before, go to Browser and search for `Swashbuckle.AspNetCore` and hit install.
-  <br/>![image](img/MSAMSMAMS/SwaggerNuGet.png)<br/>
+  <br/>![image](img/MSAMSMAMS/SwaggerNuGet.PNG)<br/>
 
   Then add the following code to the bottom of the ConfigureServices method in ``Startup.cs``:
 
@@ -245,7 +245,7 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
     });
   ```
   Now your ``startup.cs`` file should look like this
-  <br/>![image](img/MSAMSMAMS/StartupCS.png)<br/>
+  <br/>![image](img/MSAMSMAMS/StartupCS.PNG)<br/>
 
   The last step before seeing an Swagger UI for the API is to edit the launch path.
   Go to Properties in the Solution Explorer and open `launchSettings.json`.
