@@ -150,12 +150,12 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
   Once you hit OK, your project should be created. We now need to install a few dependencies so we can work with our SQL Server Database.
   Navigate to the search bar on the top right and search for "NuGet" then select manage NuGet package
 
-  <br/>![image](img/MSAMSMAMS/chooseNuGet.PNG)
+  <br/>![image](img/MSAMSMAMS/chooseNuget.PNG)
 
   Click on Browse and search for
   ``` Microsoft.EntityFrameworkCore.SqlServer ```
 
-  <br/>![image](img/MSAMSMAMS/NuGetPackage.PNG)
+  <br/>![image](img/MSAMSMAMS/nugetPackage.PNG)
 
   Hit install then do the same for  ``` Microsoft.EntityFrameworkCore.Design ```
 
