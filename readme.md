@@ -148,14 +148,14 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
   <br/>![image](img/MSAMSMAMS/chooseAPI.PNG)
 
   Once you hit OK, your project should be created. We now need to install a few dependencies so we can work with our SQL Server Database.
-  Navigate to the search bar on the top right and search for "Nuget" then select manage nuget package
+  Navigate to the search bar on the top right and search for "NuGet" then select manage NuGet package
 
-  <br/>![image](img/MSAMSMAMS/chooseNuget.PNG)
+  <br/>![image](img/MSAMSMAMS/chooseNuGet.PNG)
 
   Click on Browse and search for
   ``` Microsoft.EntityFrameworkCore.SqlServer ```
 
-  <br/>![image](img/MSAMSMAMS/nugetPackage.PNG)
+  <br/>![image](img/MSAMSMAMS/NuGetPackage.PNG)
 
   Hit install then do the same for  ``` Microsoft.EntityFrameworkCore.Design ```
 
@@ -217,7 +217,7 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
 
   > Swagger helps developers design, build, document, and consume RESTful Web services.
 
-  Open Manage nuget packages from Visual studio as before, go to Browser and search for `Swashbuckle.AspNetCore` and hit install.
+  Open Manage NuGet packages from Visual studio as before, go to Browser and search for `Swashbuckle.AspNetCore` and hit install.
   <br/>![image](img/MSAMSMAMS/SwaggerNuGet.png)<br/>
 
   Then add the following code to the bottom of the ConfigureServices method in ``Startup.cs``:
@@ -651,7 +651,7 @@ Press the cross on thr right to close the container screen. On the left inner si
 
 We've created our blob storage, now we need to edit our api to receive images and send them to our blob storage.
 
-first we need to add the client library for our api to work with the blob storage. For this add the **WindowsAzure.Storage Nuget Package**.
+first we need to add the client library for our api to work with the blob storage. For this add the **WindowsAzure.Storage NuGet Package**.
 
 We need to model what our request will look like. When uploading images, we will be sending the image title, image tag, and the image itself. For our  API to know what it is we need to create a new class in our Model folder. Right click the model folder and add item -> class. Name it MemeImageItem.cs
 
