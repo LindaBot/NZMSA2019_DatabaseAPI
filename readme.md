@@ -257,13 +257,9 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
   ```
    "launchUrl": ""
   ```
-  This will open up Swagger UI upon launch.
+  This will open up Swagger UI when we launch our project.
   
-
-  
-
-Now back in launchSettings.json, change `"launchUrl": "api/meme"` to `"launchUrl": ""`. This will open root when we launch our project, which is what we have configured swagger to run from.
-
+  Everything is ready. Launch the project again to see your new Swagger UI!
 
 
 
