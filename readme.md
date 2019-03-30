@@ -16,21 +16,19 @@ This documentation is a supplement to the YouTube Video on how to create a Datab
 
 ## 1. Before you start 
 
-There are a few items you will need to have prior to commencing this tutorial.
+There are a few programs you will need to have installed prior to commencing this tutorial.
 
-* Visual Studio Community 2017
-    * When installing ensure ASP.NET Core and web development is selected      
-* Azure Account with active subscription (You can just sign up for a new account for subscription)
-* .NET Core 2.1 SDK or later
-* Postman
+* <a href="https://visualstudio.microsoft.com/downloads/">Visual Studio Community 2017</a>
+    * When installing ensure ASP.NET and Web development is selected      
+* <a href="https://dotnet.microsoft.com/download/visual-studio-sdks">.NET Core 2.2 SDK</a>
+* Azure Account with active subscription, if you don't already have one, sign up with your uni account to get a free subscription.
 * <a href="https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest">Azure command line (CLI)</a>
-* <a href="https://dotnet.microsoft.com/download/visual-studio-sdks">DOTNET Core 2.2</a>
 * Don't forget to restart your computer after you've installed all the softwares
 
 
 ## 1.1 Context
 
-For the sake of this tutorial, we will be making a school management system that allows the user to create/read/update/delete student information. 
+For this tutorial, we will be making a school student management system(SIS) RESTful API that allows the users to create/read/update/delete student information. 
 
 ## 2. Model
 
@@ -218,7 +216,7 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
   > Swagger helps developers design, build, document, and consume RESTful Web services.
 
   Open Manage NuGet packages from Visual studio as before, go to Browser and search for `Swashbuckle.AspNetCore` and hit install.
-  <br/>![image](img/MSAMSMAMS/SwaggerNuGet.PNG)<br/>
+  <br/>![image](img/MSAMSMAMS/swaggerNuGet.PNG)<br/>
 
   Then add the following code to the bottom of the ConfigureServices method in ``Startup.cs``:
 
