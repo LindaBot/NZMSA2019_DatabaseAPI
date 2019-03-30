@@ -4,15 +4,11 @@ This documentation is a supplement to the YouTube Video on how to create a Datab
 
 ### Contents
 1. Before you start
+   * 1.1 Context
 2. Model
-3. Base
-4. Enabling Sqlite, Seeding Data, & Migrations
-5. CRUD + Swagger
-6. LINQ
-7. Adding Azure Blob Storage
-8. Deploying to Azure
-9. CORS Warning/Error
-
+3. Azure SQL Database
+4. Create the API using .NET Core
+5. Swagger
 
 ## 1. Before you start 
 
@@ -35,8 +31,6 @@ For this tutorial, we will be making a school student management system(SIS) RES
 Before we even start to write a line of code, we need to think about what we would like to store in our database and what properties we want our API to return. This is crucial because the cost of modifying an existing database is very high.
 
 In phase 1 we will only focus on creating one table, keep an eye out on phase 2 for more exciting stuff such as database normalisation concepts and relational models!
- 
-<!-- We need to then explicitly define this. Generally speaking there are some common properties such as ID, which present in all Models.  -->
  
  In this example, we would like to store some details of the student. Ask yourself, what basic information would we need to store from a student?
 
@@ -64,6 +58,11 @@ There are many data types available in SQL, the ones we will be using are:
 
  <br/>![image](img/MSAMSMAMS/dbDiagram.PNG)
 
+  Notice how there is the word 'primary key' in the id field?
+  >A primary key is a special relational database table column designated to uniquely identify a record.
+  A primary key’s main features are:
+  It must contain a unique value for each row of data.
+  It cannot contain null values.
 ---
 **NOTE**
 
@@ -71,15 +70,15 @@ This diagram may look redundant/hollow as of now because there is only one table
 
 ---
 
-Noticed how the fields have the same naming convention? Each word is separated with underscore. Having the same naming convention would add consistency throughout the database.
+Noticed how the fields have the same naming convention? Each word is separated with a underscore and there are no capital letters. Having the same naming convention would add consistency throughout the database.
 
 ## 3. Azure SQL Database
 Now that we have finished planning for the database, we can actually create it on Azure portal!
 
 Make sure you have an active subscription, navigate to https://portal.azure.com on your browser and search for a new service resource called "SQL databases"
- <br/>![image](img/MSAMSMAMS/sqlService.PNG)
+  <br/>![image](img/MSAMSMAMS/sqlService.PNG)
 
- Then click on Add then follow the structure below
+  Then click on Add then follow the structure below
   <br/>![image](img/MSAMSMAMS/createDB.PNG)
 
   When you are creating a new server, choose a sensible server name and note down your database admin login and password, we will need to use it later. Choose Australis Southeast Location as it is physically closest to us.
@@ -148,7 +147,7 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
   Once you hit OK, your project should be created. We now need to install a few dependencies so we can work with our SQL Server Database.
   Navigate to the search bar on the top right and search for "NuGet" then select manage NuGet package
 
-  <br/>![image](img/MSAMSMAMS/chooseNuget.PNG)
+  <br/>![image](img/MSAMSMAMS/findNuget.PNG)
 
   Click on Browse and search for
   ``` Microsoft.EntityFrameworkCore.SqlServer ```
@@ -211,6 +210,7 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
   <br/>![image](img/MSAMSMAMS/APIstudentsPath.PNG)<br/>
   **Voilà, this is your first API!** This is not very exciting right now as there is no content stored in the database, but if you are able to see this, believe it or not, you've just created a fully functional API.
 
+  ## 5. Swagger UI
   In order for us to interact with the API, we can use <a href="https://www.getpostman.com/">Postman</a> to make HTTPS requests, but that's boring and abstract when we are just starting out creating API. In order to have a visual representation of the API, let's install <a href="https://swagger.io/">Swagger</a>
 
   > Swagger helps developers design, build, document, and consume RESTful Web services.
