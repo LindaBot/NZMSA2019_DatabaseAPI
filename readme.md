@@ -178,14 +178,14 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
 
   Right click on controllers from the Solution Explorer - ```Add - New Scaffold item...```
 
-  <br/>![image](img/MSAMSMAMS/addScaffoldItem.png)
+  <br/>![image](img/MSAMSMAMS/addScaffoldItem.png)<br/>
 
   Choose ```API Controller with actions, using Entity Framework```
-  <br/>![image](img/MSAMSMAMS/scaffoldControllerUsingEF.PNG)
+  <br/>![image](img/MSAMSMAMS/scaffoldControllerUsingEF.PNG)<br/>
 
   Choose Students in Model class, schoolSISContext as Data context class and controller name should be auto completed.
 
-  <br/>![image](img/MSAMSMAMS/editController.PNG)
+  <br/>![image](img/MSAMSMAMS/editController.PNG)<br/>
 
   Hit add and wait for Visual Studio to do its magic.
 
