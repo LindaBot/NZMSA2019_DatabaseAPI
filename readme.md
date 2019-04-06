@@ -158,7 +158,8 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
   Hit install then do the same for  ``` Microsoft.EntityFrameworkCore.Design ```
 
   We have everything we need to work with the database, now we can "Scaffold" the database.
-  # Insert explaination for Scaffold
+  > ASP.NET **Scaffolding** is a code generation framework for ASP.NET Web applications. You add scaffolding to your project when you want to quickly add code that interacts with data models. Using scaffolding can reduce the amount of time to develop standard data operations in your project.
+  
   Open up Package Manager Console. (If you can't find it, remember to use the search bar on the top right) 
   ```
   Scaffold-DbContext "YOURCONNECTIONSTRING" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Model -Context "CONTEXTNAME" -DataAnnotations
@@ -183,8 +184,6 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
   <br/>![image](img/MSAMSMAMS/scaffoldControllerUsingEF.PNG)
 
   Choose Students in Model class, schoolSISContext as Data context class and controller name should be auto completed.
-
-  **NEW CONTEXT NEEDS TO BE CREATED**
 
   <br/>![image](img/MSAMSMAMS/editController.PNG)
 
@@ -224,7 +223,7 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
   services.AddDbContext<schoolSIMSContext>(options => options.UseSqlServer(connection));
   ```
 
-  This would allow the add the `schoolSIMSContext` to the application so our Student controller will be able to use it.
+  This would add the `schoolSIMSContext` to the application so our Student controller can use it.
 
   With that last change, Go ahead and start the API application with IIS Express in the tool bar. 
   <br/>![image](img/MSAMSMAMS/IISExpress.PNG)</br>
