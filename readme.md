@@ -20,6 +20,7 @@ There are a few programs you will need to have installed prior to commencing thi
 * <a href="https://dotnet.microsoft.com/download/visual-studio-sdks">.NET Core 2.2 SDK</a>
 * Azure Account with active subscription, if you don't already have one, sign up with your uni account to get a free subscription.
 * <a href="https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest">Azure command line (CLI)</a>
+* <a href="https://git-scm.com/downloads">Git</a> for source control
 * Don't forget to restart your computer after you've installed all the softwares
 
 
