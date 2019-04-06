@@ -9,6 +9,7 @@ This documentation is a supplement to the YouTube Video on how to create a Datab
 3. Azure SQL Database
 4. Create the API using .NET Core
 5. Swagger
+6. Submission Criteria
 
 ## 1. Before you start 
 
@@ -34,7 +35,7 @@ In phase 1 we will only focus on creating one table, keep an eye out on phase 2 
  
  In this example, we would like to store some details of the student. Ask yourself, what basic information would we need to store from a student?
 
- We will be storing the following information, feel free to add/delete fields as you see fit.
+ We will be storing the following information, feel free to add/delete fields as you see fit. **You will be required to add at least one field in order to pass this assignment**
 
  * Id
  * First Name
@@ -160,9 +161,10 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
   # Insert explaination for Scaffold
   Open up Package Manager Console. (If you can't find it, remember to use the search bar on the top right) 
   ```
-  Scaffold-DbContext "YOURCONNECTIONSTRING" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Model -Context "schoolSISContext" -DataAnnotations
+  Scaffold-DbContext "YOURCONNECTIONSTRING" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Model -Context "CONTEXTNAME" -DataAnnotations
   ```
-  Replace **YOURCONNECTIONSTRING** to the connection string you've retrieved from Azure.<br/>
+  Replace **YOURCONNECTIONSTRING** with the connection string you've retrieved from Azure.<br/>
+  Replace **CONTEXTNAME** with your database name you've retrieved from Azure, in this case I will name it schoolSIMSContext<br/>
   Paste the code in the console and execute it.
 
   In the Solution Explorer, you can see that there are two files being created through the scaffold command.
@@ -175,12 +177,15 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
 
   Right click on controllers from the Solution Explorer - ```Add - New Scaffold item...```
 
-  <br/>![image](img/MSAMSMAMS/addScaffoldItem.PNG)
+  <br/>![image](img/MSAMSMAMS/addScaffoldItem.png)
 
   Choose ```API Controller with actions, using Entity Framework```
   <br/>![image](img/MSAMSMAMS/scaffoldControllerUsingEF.PNG)
 
   Choose Students in Model class, schoolSISContext as Data context class and controller name should be auto completed.
+
+  **NEW CONTEXT NEEDS TO BE CREATED**
+
   <br/>![image](img/MSAMSMAMS/editController.PNG)
 
   Hit add and wait for Visual Studio to do its magic.
@@ -204,6 +209,23 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
   }
   ```
 
+  Our last step is to change ConfigureServices method in `startup.cs`.
+
+  Add these two dependencies in `Startup.cs`
+  ```
+  using Microsoft.EntityFrameworkCore;
+  using schoolSIMS.Model;
+  ```
+
+  Under the ConfigureServices() Method, add the following line
+
+  ```
+  var connection = Configuration.GetConnectionString("schoolSIMSContext");
+  services.AddDbContext<schoolSIMSContext>(options => options.UseSqlServer(connection));
+  ```
+
+  This would allow the add the `schoolSIMSContext` to the application so our Student controller will be able to use it.
+
   With that last change, Go ahead and start the API application with IIS Express in the tool bar. 
   <br/>![image](img/MSAMSMAMS/IISExpress.PNG)</br>
   Once IIS Express launches a browser, change the path from /values to /Students
@@ -224,7 +246,7 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
     // Register the Swagger generator, defining 1 or more Swagger documents
     services.AddSwaggerGen(c =>
     {
-        c.SwaggerDoc("v1", new Info { Title = "SchoolSIS", Version = "v1" });
+        c.SwaggerDoc("v1", new Info { Title = "TITLE", Version = "v1" });
     });
   ```
 
@@ -238,7 +260,7 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
     // specifying the Swagger JSON endpoint.
     app.UseSwaggerUI(c =>
     {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "School SIS API V1");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My first API V1");
         c.RoutePrefix = string.Empty; // launch swagger from root
     });
   ```
@@ -292,3 +314,8 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
   <br/>![image](img/MSAMSMAMS/swaggerGetStudent.PNG)<br/>
 
   Notice that there is a Values controller shown in the Swagger UI under Students? That's the default controller the API creates. We can get rid of it simply by deleting ```Controllers/ValuesController.cs``` in Visual Studio.
+
+  ## 6. Submission Criteria:
+  1) Screenshots of your SQL Database through Query Editor via Azure Portal 
+  2) Screenshots of your Swagger UI showing your RESTful API
+  3) Link to your GitHub Repo
