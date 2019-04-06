@@ -18,7 +18,7 @@ There are a few programs you will need to have installed prior to commencing thi
 * <a href="https://visualstudio.microsoft.com/downloads/">Visual Studio Community 2017</a>
     * When installing ensure ASP.NET and Web development is selected      
 * <a href="https://dotnet.microsoft.com/download/visual-studio-sdks">.NET Core 2.2 SDK</a>
-* Azure Account with active subscription, if you don't already have one, sign up with your uni account to get a free subscription.
+* Azure Account with active subscription. See Azure for Student folder for instruction
 * <a href="https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest">Azure command line (CLI)</a>
 * <a href="https://git-scm.com/downloads">Git</a> for source control
 * Don't forget to restart your computer after you've installed all the softwares
@@ -36,7 +36,7 @@ In phase 1 we will only focus on creating one table, keep an eye out on phase 2 
  
  In this example, we would like to store some details of the student. Ask yourself, what basic information would we need to store from a student?
 
- We will be storing the following information, feel free to add/delete fields as you see fit. **You will be required to add at least one field in order to pass this assignment**
+ We will be storing the following information, feel free to add/delete fields as you see fit. **You are required to add at least one field in order to pass this assignment**
 
  * Id
  * First Name
