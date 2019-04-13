@@ -1,5 +1,7 @@
 # Creating Database and API
 
+This database and API module designed to help students to get exposure on the different kinds of technology involved for making a SQL database and a RESTful API. 
+
 This documentation is a supplement to the YouTube Video on how to create a Database on Azure and an Web API on ASP.NET Core. 
 
 ### Contents
@@ -10,7 +12,9 @@ This documentation is a supplement to the YouTube Video on how to create a Datab
 3. Creating an Azure SQL Database
 4. Creating the API using .NET Core
 5. Add Swagger UI
+   * 5.1 Future learning path
 6. Submission Criteria
+7. Postface
 
 ## 1. Before you start 
 
@@ -21,6 +25,7 @@ There are a few programs you will need to have installed prior to commencing thi
 * <a href="https://dotnet.microsoft.com/download/visual-studio-sdks">.NET Core 2.2 SDK</a>
 * Azure Account with active subscription. See Azure for Student folder for instruction
 * <a href="https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest">Azure command line (CLI)</a>
+* An active student subscription on Azure, here is how to obtain a free student subscription 
 * <a href="https://git-scm.com/downloads">Git</a> for source control
 * Don't forget to restart your computer after you've installed all the softwares
 
@@ -343,3 +348,6 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
   
   Your GitHub submission should look like this:
   <br/>![image](img/githubScreenshot.PNG)<br/>
+
+  ## 7. Postface:
+  Note that the SQL server hosted on Azure costs ~$8 a month, if you are not planning to use it in the future, please make sure that you've taken all the screenshots required and **stop the service** on Azure portal so you won't burn through your credits.

@@ -13078,11 +13078,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\wsydg\\source\\repos\\schoolSIMS\\schoolSIMS\\schoolSIMS.csproj",
+      "projectUniqueName": "C:\\Users\\wsydg\\Desktop\\MSA\\NZMSA2019_DatabaseAPI\\schoolSIMS\\schoolSIMS.csproj",
       "projectName": "schoolSIMS",
-      "projectPath": "C:\\Users\\wsydg\\source\\repos\\schoolSIMS\\schoolSIMS\\schoolSIMS.csproj",
+      "projectPath": "C:\\Users\\wsydg\\Desktop\\MSA\\NZMSA2019_DatabaseAPI\\schoolSIMS\\schoolSIMS.csproj",
       "packagesPath": "C:\\Users\\wsydg\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\wsydg\\source\\repos\\schoolSIMS\\schoolSIMS\\obj\\",
+      "outputPath": "C:\\Users\\wsydg\\Desktop\\MSA\\NZMSA2019_DatabaseAPI\\schoolSIMS\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
