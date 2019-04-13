@@ -1,8 +1,8 @@
 # Creating Database and API
 
-This database and API module designed to help students to get exposure on the different kinds of technology involved for making a SQL database and a RESTful API. 
+This database and API module designed to help students to get exposure to the different kinds of technology involved for making a SQL database and a RESTful API. 
 
-This documentation is a supplement to the YouTube Video on how to create a Database on Azure and an Web API on ASP.NET Core. 
+This documentation is a supplement to the YouTube Video on how to create a Database on Azure and a Web API on ASP.NET Core. 
 
 ### Contents
 1. Before you start
@@ -23,11 +23,11 @@ There are a few programs you will need to have installed prior to commencing thi
 * <a href="https://visualstudio.microsoft.com/downloads/">Visual Studio Community 2017</a>
     * When installing ensure ASP.NET and Web development is selected      
 * <a href="https://dotnet.microsoft.com/download/visual-studio-sdks">.NET Core 2.2 SDK</a>
-* Azure Account with active subscription. See Azure for Student folder for instruction
+* Azure Account with an active subscription. See Azure for Student folder for instruction
 * <a href="https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest">Azure command line (CLI)</a>
-* An active student subscription on Azure, here is how to obtain a free student subscription 
+* An active student subscription on Azure, <a href="https://github.com/NZMSA/2019-Phase-1/tree/master/Azure%20For%20Students">here is how to obtain a free student subscription </a>
 * <a href="https://git-scm.com/downloads">Git</a> for source control
-* Don't forget to restart your computer after you've installed all the softwares
+* Don't forget to restart your computer after you've installed all the software
 
 Microsoft Learn Video:<br/>
 Watch this MSA tutorial on: <a href="https://www.youtube.com/watch?v=lE3eIlMpUu0">Mastering Git + GitHub</a><br/>
@@ -88,7 +88,7 @@ This diagram may look redundant/hollow as of now because there is only one table
 
 ---
 
-Noticed how the attributes have the same naming convention? Each word is separated with a underscore and there are no capital letters. Having the same naming convention would add consistency throughout the database.
+Noticed how the attributes have the same naming convention? Each word is separated with an underscore and there are no capital letters. Having the same naming convention would add consistency throughout the database.
 
 ## 3. Azure SQL Database
 Now that we have finished planning for the database, we can actually create it on Azure portal!
@@ -113,12 +113,12 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
   Now that the database is created, we shall create the table we've designed earlier in the database. Click on your new SQL Database resource
   <br/>![image](img/viewResource.PNG)
 
-  From the tool bar on the left, choose Query Editor.
+  From the toolbar on the left, choose Query Editor.
   <br/>![image](img/queryEditor.PNG)
   
   Remember your database admin login and password? Pop those in.
 
-  We are now going to use standard SQL statement to create a new table (notice how similar this SQL statement is compared to the design we did on dbDiagram?) **Again, You are required to add at least one attribute in order to pass this assignment**:
+  We are now going to use a standard SQL statement to create a new table (notice how similar this SQL statement is compared to the design we did on dbDiagram?) **Again, You are required to add at least one attribute in order to pass this assignment**:
   ```
     CREATE TABLE [students]
     (
@@ -157,8 +157,8 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
 
   <br/>![image](img/newProject.PNG)
 
-  Select API and make sure your .Net Core version is 2.2
-  If you only see ASP.NET COre 2.1, download the ASP.NET Core 2.2 SDK as suggested in the beginning of the documentation.
+  Select API and make sure your DOTNet Core version is 2.2
+  If you only see ASP.NET COre 2.1, download the ASP.NET Core 2.2 SDK as suggested at the beginning of the documentation.
 
   <br/>![image](img/chooseAPI.PNG)
 
@@ -174,7 +174,7 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
 
   Hit install then do the same for  ``` Microsoft.EntityFrameworkCore.Design ```
 
-  We have everything we need to work with the database, now we can "Scaffold" the API using database.
+  We have everything we need to work with the database, now we can "Scaffold" the API using the database.
   > ASP.NET **Scaffolding** is a code generation framework for ASP.NET Web applications. You add scaffolding to your project when you want to quickly add code that interacts with data models. Using scaffolding can reduce the amount of time to develop standard data operations in your project.
   
   Open up Package Manager Console. (If you can't find it, remember to use the search bar on the top right) 
@@ -182,14 +182,14 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
   Scaffold-DbContext "YOURCONNECTIONSTRING" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Model -Context "CONTEXTNAME" -DataAnnotations
   ```
   Replace **YOURCONNECTIONSTRING** with the connection string you've retrieved from Azure.<br/>
-  Replace **CONTEXTNAME** with your database name you've retrieved from Azure, in this case I will name it schoolSIMSContext<br/>
+  Replace **CONTEXTNAME** with your database name you've retrieved from Azure, in this case, I will name it schoolSIMSContext<br/>
   Paste the code in the console and execute it.
 
   In the Solution Explorer, you can see that there are two files being created through the scaffold command.
   
   ```schoolSIMSContext.cs``` represents a session with the underlying database. You can read more on <a href="https://docs.microsoft.com/en-us/dotnet/api/system.data.entity.dbcontext?view=entity-framework-6.2.0">DbContext Class</a>
 
-  ```Students.cs``` is the class created from the design of the database table, think of it like the blueprint for a student object. Whenever we create a student, it will have those attributes/variables listed in the Students class.
+  ```Students.cs``` is the class created from the design of the database table, think of it as the blueprint for a student object. Whenever we create a student, it will have those attributes/variables listed in the Students class.
 
   We now have the blueprint for a student, we can use this blueprint to create a controller so we can interact with the database with HTTP requests. <a href="https://docs.microsoft.com/en-us/aspnet/web-api/overview/getting-started-with-aspnet-web-api/tutorial-your-first-web-api#adding-a-controller">Read more about controllers here</a>
 
@@ -200,7 +200,7 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
   Choose ```API Controller with actions, using Entity Framework```
   <br/>![image](img/scaffoldControllerUsingEF.PNG)<br/>
 
-  Choose Students in Model class, schoolSISContext as Data context class and controller name should be auto completed.
+  Choose Students in Model class, schoolSISContext as Data context class and controller name should be auto-completed.
 
   <br/>![image](img/editController.PNG)<br/>
 
@@ -285,7 +285,7 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
   Now your ``startup.cs`` file should look like this
   <br/>![image](img/StartupCS.PNG)<br/>
 
-  The last step before seeing an Swagger UI for the API is to edit the launch path.
+  The last step before seeing a Swagger UI for the API is to edit the launch path.
   Go to Properties in the Solution Explorer and open `launchSettings.json`.
   Change all occurrences of 
   ```
@@ -304,7 +304,7 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
   Let's create our very first student using the Swagger UI.
   Click on POST under Students controller
 
-  >POST is a HTTP method used to send data to a server to create/update a resource
+  >POST is an HTTP method used to send data to a server to create/update a resource
 
   <br/>![image](img/swaggerPostStudent.PNG)<br/>
 
@@ -336,11 +336,11 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
   Now upload your API source code to GitHub and you are done!
 
   ## 5.1 Future learning path (Optional)
-  If you would like to learn more about API and Databases, I would recommend you to build a relational database and use LINQ in ASP.NET Core to get information between the tables. Make something creative, make something useful. Maybe a database that can hold your blogs, or maybe a database that holds your digital diary. The possibility with databases and APIs are endless. Doing this will give you a head start in phase 2!
+  If you would like to learn more about API and Databases, I would recommend you to build a relational database and use LINQ in ASP.NET Core to get information between the tables. Make something creative, make something useful. Maybe a database that can hold your blogs, or maybe a database that holds your digital diary. The possibility of databases and APIs are endless. Doing this will give you a head start in phase 2!
 
 
   ## 6. Submission Criteria:
-  All screenshots should be saved on your GitHub repo under the a folder called "screenshots"
+  All screenshots should be saved on your GitHub repo under a folder called "screenshots"
   1) Screenshots of your SQL Database through Query Editor via Azure Portal 
   2) Screenshots of your Swagger UI showing your RESTful API
   3) Screenshots of your azure fundamental dashboard on Microsoft learn showing 8 green ticks
