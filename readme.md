@@ -1,14 +1,15 @@
 # Creating Database and API
 
-This documentation is a supplement to the YouTube Video on how to create a Database on Azure and an API on ASP.NET Core. If you are confident with your ability to code, feel free to watch the video in 2x speed or just read the documentation by itself. :)
+This documentation is a supplement to the YouTube Video on how to create a Database on Azure and an Web API on ASP.NET Core. 
 
 ### Contents
 1. Before you start
-   * 1.1 Context
-2. Model
-3. Azure SQL Database
-4. Create the API using .NET Core
-5. Swagger
+   * 1.1 Learning outcome
+   * 1.2 Context
+2. Designing a Model
+3. Creating an Azure SQL Database
+4. Creating the API using .NET Core
+5. Add Swagger UI
 6. Submission Criteria
 
 ## 1. Before you start 
@@ -23,10 +24,20 @@ There are a few programs you will need to have installed prior to commencing thi
 * <a href="https://git-scm.com/downloads">Git</a> for source control
 * Don't forget to restart your computer after you've installed all the softwares
 
+Microsoft Learn Video:<br/>
+Watch this MSA tutorial on: <a href="https://www.youtube.com/watch?v=lE3eIlMpUu0">Mastering Git + GitHub</a><br/>
+Azure fundamentals: <a href="https://docs.microsoft.com/en-us/learn/paths/azure-fundamentals/">Core Cloud Services - Introduction to Azure</a> (You must log in to save progress)
 
-## 1.1 Context
 
-For this tutorial, we will be making a school student management system(SIS) RESTful API that allows the users to create/read/update/delete student information. 
+
+## 1.1 Learning Outcome
+- How to create a Database on Microsoft Azure
+- How to create an API that can perform basic CRUD operations on ASP.NET Core
+- Understandings of Database and API design
+- Basic understandings of SQL
+
+## 1.2 Context
+For this tutorial, I will be making a school student information management system(SIMS) RESTful API that allows the users to create/read/update/delete student information from the database. We encourage you to design your own scenario. 
 
 ## 2. Model
 
@@ -36,7 +47,7 @@ In phase 1 we will only focus on creating one table, keep an eye out on phase 2 
  
  In this example, we would like to store some details of the student. Ask yourself, what basic information would we need to store from a student?
 
- We will be storing the following information, feel free to add/delete fields as you see fit. **You are required to add at least one field in order to pass this assignment**
+ We will be storing the following information, feel free to add/delete attributes as you see fit. **You are required to add at least one attribute in order to pass this assignment**
 
  * Id
  * First Name
@@ -46,7 +57,7 @@ In phase 1 we will only focus on creating one table, keep an eye out on phase 2 
  * DOB (Date of birth)
  * Date Created
 
- Aside from field names, we also need to consider their types. For example, it is normal to store *id* as integers, but it doesn't make sense to only allow numbers to be stored in the *name* fields. 
+ Aside from attribute names, we also need to consider their types. For example, it is normal to store *id* as integers, but it doesn't make sense to only allow numbers to be stored in the *name* attributes. 
  
 There are many data types available in SQL, the ones we will be using are:
  * VARCHAR
@@ -58,9 +69,9 @@ There are many data types available in SQL, the ones we will be using are:
 
  After we confirm on what we need to store, we shall model this out. 
 
- <br/>![image](img/MSAMSMAMS/dbDiagram.PNG)
+ <br/>![image](img/dbDiagram.PNG)
 
-  Notice how there is the word 'primary key' in the id field?
+  Notice how there is the word 'primary key' in the id attribute?
   >A primary key is a special relational database table column designated to uniquely identify a record.
   A primary key’s main features are:
   It must contain a unique value for each row of data.
@@ -72,37 +83,37 @@ This diagram may look redundant/hollow as of now because there is only one table
 
 ---
 
-Noticed how the fields have the same naming convention? Each word is separated with a underscore and there are no capital letters. Having the same naming convention would add consistency throughout the database.
+Noticed how the attributes have the same naming convention? Each word is separated with a underscore and there are no capital letters. Having the same naming convention would add consistency throughout the database.
 
 ## 3. Azure SQL Database
 Now that we have finished planning for the database, we can actually create it on Azure portal!
 
 Make sure you have an active subscription, navigate to https://portal.azure.com on your browser and search for a new service resource called "SQL databases"
-  <br/>![image](img/MSAMSMAMS/sqlService.PNG)
+  <br/>![image](img/sqlService.PNG)
 
   Then click on Add then follow the structure below
-  <br/>![image](img/MSAMSMAMS/createDB.PNG)
+  <br/>![image](img/createDB.PNG)
 
   When you are creating a new server, choose a sensible server name and note down your database admin login and password, we will need to use it later. Choose Australis Southeast Location as it is physically closest to us.
-  <br/>![image](img/MSAMSMAMS/newRS.PNG)
+  <br/>![image](img/newRS.PNG)
 
   When it comes to choosing Compute + storage, select the free/cheapest option
-  <br/>![image](img/MSAMSMAMS/configureServer.PNG)
+  <br/>![image](img/configureServer.PNG)
 
   When you are done, click on Review + create then your deployment should be underway!
 
   In about 2 minutes, you should see the following notification
-  <br/>![image](img/MSAMSMAMS/deploymentDone.PNG)
+  <br/>![image](img/deploymentDone.PNG)
 
   Now that the database is created, we shall create the table we've designed earlier in the database. Click on your new SQL Database resource
-  <br/>![image](img/MSAMSMAMS/viewResource.PNG)
+  <br/>![image](img/viewResource.PNG)
 
   From the tool bar on the left, choose Query Editor.
-  <br/>![image](img/MSAMSMAMS/queryEditor.PNG)
+  <br/>![image](img/queryEditor.PNG)
   
   Remember your database admin login and password? Pop those in.
 
-  We are now going to use standard SQL statement to create a new table (notice how similar this SQL statement is compared to the design we did on dbDiagram?):
+  We are now going to use standard SQL statement to create a new table (notice how similar this SQL statement is compared to the design we did on dbDiagram?) **Again, You are required to add at least one attribute in order to pass this assignment**:
   ```
     CREATE TABLE [students]
     (
@@ -117,19 +128,19 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
   ```
 
   Hit the Run button then you should see the following message:
-  <br/>![image](img/MSAMSMAMS/createTable.PNG)
+  <br/>![image](img/createTable.PNG)
 
   Our database is basically done. We just need to do two more things to allow us to access the database from anywhere.
 
   Go back to Overview and hit "Set server firewall"
-  <br/>![image](img/MSAMSMAMS/serverFirewall.PNG)
+  <br/>![image](img/serverFirewall.PNG)
   Add the following firewall rule to enable access to the database from any IP address.
-  <br/>![image](img/MSAMSMAMS/firewallRule.PNG)
+  <br/>![image](img/firewallRule.PNG)
   Then hit Save.
 
   One more thing. 
   Choose Connection Strings from the toolbar and copy ADO.NET connection string, we will use this to scaffold the database when we are creating the API.
-  <br/>![image](img/MSAMSMAMS/connectionString.PNG)
+  <br/>![image](img/connectionString.PNG)
 
   Now we are ready to go to the next phase.
 
@@ -139,26 +150,26 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
   Open Visual Studio -> New Project -> Web -> .Net Core -> ASP.NET Core Web Application. 
   <br/>Make sure you tick add to source control.
 
-  <br/>![image](img/MSAMSMAMS/newProject.PNG)
+  <br/>![image](img/newProject.PNG)
 
   Select API and make sure your .Net Core version is 2.2
   If you only see ASP.NET COre 2.1, download the ASP.NET Core 2.2 SDK as suggested in the beginning of the documentation.
 
-  <br/>![image](img/MSAMSMAMS/chooseAPI.PNG)
+  <br/>![image](img/chooseAPI.PNG)
 
   Once you hit OK, your project should be created. We now need to install a few dependencies so we can work with our SQL Server Database.
   Navigate to the search bar on the top right and search for "NuGet" then select manage NuGet package
 
-  <br/>![image](img/MSAMSMAMS/findNuget.PNG)
+  <br/>![image](img/findNuget.PNG)
 
   Click on Browse and search for
   ``` Microsoft.EntityFrameworkCore.SqlServer ```
 
-  <br/>![image](img/MSAMSMAMS/nugetPackage.PNG)
+  <br/>![image](img/nugetPackage.PNG)
 
   Hit install then do the same for  ``` Microsoft.EntityFrameworkCore.Design ```
 
-  We have everything we need to work with the database, now we can "Scaffold" the database.
+  We have everything we need to work with the database, now we can "Scaffold" the API using database.
   > ASP.NET **Scaffolding** is a code generation framework for ASP.NET Web applications. You add scaffolding to your project when you want to quickly add code that interacts with data models. Using scaffolding can reduce the amount of time to develop standard data operations in your project.
   
   Open up Package Manager Console. (If you can't find it, remember to use the search bar on the top right) 
@@ -171,22 +182,22 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
 
   In the Solution Explorer, you can see that there are two files being created through the scaffold command.
   
-  ```schoolSISContext.cs``` represents a session with the underlying database. You can read more on <a href="https://docs.microsoft.com/en-us/dotnet/api/system.data.entity.dbcontext?view=entity-framework-6.2.0">DbContext Class</a>
+  ```schoolSIMSContext.cs``` represents a session with the underlying database. You can read more on <a href="https://docs.microsoft.com/en-us/dotnet/api/system.data.entity.dbcontext?view=entity-framework-6.2.0">DbContext Class</a>
 
-  ```Students.cs``` is the class created from the design of the database table, think of it like the blueprint for a student object. Whenever we create a student, it will have those fields/variables listed in the Students class.
+  ```Students.cs``` is the class created from the design of the database table, think of it like the blueprint for a student object. Whenever we create a student, it will have those attributes/variables listed in the Students class.
 
   We now have the blueprint for a student, we can use this blueprint to create a controller so we can interact with the database with HTTP requests. <a href="https://docs.microsoft.com/en-us/aspnet/web-api/overview/getting-started-with-aspnet-web-api/tutorial-your-first-web-api#adding-a-controller">Read more about controllers here</a>
 
   Right click on controllers from the Solution Explorer - ```Add - New Scaffold item...```
 
-  <br/>![image](img/MSAMSMAMS/addScaffoldItem.png)<br/>
+  <br/>![image](img/addScaffoldItem.png)<br/>
 
   Choose ```API Controller with actions, using Entity Framework```
-  <br/>![image](img/MSAMSMAMS/scaffoldControllerUsingEF.PNG)<br/>
+  <br/>![image](img/scaffoldControllerUsingEF.PNG)<br/>
 
   Choose Students in Model class, schoolSISContext as Data context class and controller name should be auto completed.
 
-  <br/>![image](img/MSAMSMAMS/editController.PNG)<br/>
+  <br/>![image](img/editController.PNG)<br/>
 
   Hit add and wait for Visual Studio to do its magic.
 
@@ -216,20 +227,22 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
   using Microsoft.EntityFrameworkCore;
   using schoolSIMS.Model;
   ```
+  You may have to change the name of the last dependency to match the name of your context.
 
   Under the ConfigureServices() Method, add the following line
+
 
   ```
   var connection = Configuration.GetConnectionString("schoolSIMSContext");
   services.AddDbContext<schoolSIMSContext>(options => options.UseSqlServer(connection));
   ```
 
-  This would add the `schoolSIMSContext` to the application so our Student controller can use it.
+  This would add the `schoolSIMSContext` to the application so our Student controller can use it. If you have a different context name, replace the context name in the code above with your context name.
 
   With that last change, Go ahead and start the API application with IIS Express in the tool bar. 
-  <br/>![image](img/MSAMSMAMS/IISExpress.PNG)</br>
+  <br/>![image](img/IISExpress.PNG)</br>
   Once IIS Express launches a browser, change the path from /values to /Students
-  <br/>![image](img/MSAMSMAMS/APIstudentsPath.PNG)<br/>
+  <br/>![image](img/APIstudentsPath.PNG)<br/>
   **Voilà, this is your first API!** This is not very exciting right now as there is no content stored in the database, but if you are able to see this, believe it or not, you've just created a fully functional API.
 
   ## 5. Swagger UI
@@ -238,7 +251,7 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
   > Swagger helps developers design, build, document, and consume RESTful Web services.
 
   Open Manage NuGet packages from Visual studio as before, go to Browser and search for `Swashbuckle.AspNetCore` and hit install.
-  <br/>![image](img/MSAMSMAMS/swaggerNuGet.PNG)<br/>
+  <br/>![image](img/swaggerNuGet.PNG)<br/>
 
   Then add the following code to the bottom of the ConfigureServices method in ``Startup.cs``:
 
@@ -265,7 +278,7 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
     });
   ```
   Now your ``startup.cs`` file should look like this
-  <br/>![image](img/MSAMSMAMS/StartupCS.PNG)<br/>
+  <br/>![image](img/StartupCS.PNG)<br/>
 
   The last step before seeing an Swagger UI for the API is to edit the launch path.
   Go to Properties in the Solution Explorer and open `launchSettings.json`.
@@ -281,14 +294,14 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
   
   Everything is ready. Launch the project again to see your new Swagger UI!
 
-  <br/>![image](img/MSAMSMAMS/swaggerUI.PNG)<br/>
+  <br/>![image](img/swaggerUI.PNG)<br/>
 
   Let's create our very first student using the Swagger UI.
   Click on POST under Students controller
 
   >POST is a HTTP method used to send data to a server to create/update a resource
 
-  <br/>![image](img/MSAMSMAMS/swaggerPostStudent.PNG)<br/>
+  <br/>![image](img/swaggerPostStudent.PNG)<br/>
 
   Click on Try it out and enter the following information:
   ```
@@ -307,15 +320,26 @@ Make sure you have an active subscription, navigate to https://portal.azure.com 
 
   >The HTTP 201 Created success status response code indicates that the request has succeeded and has led to the creation of a resource.
   
-  <br/>![image](img/MSAMSMAMS/swaggerServerResponse.PNG)<br/>
+  <br/>![image](img/swaggerServerResponse.PNG)<br/>
 
   To see the entry you just created, we need to use the ```GET``` HTTP method. Click on Get under students controller in Swagger UI and then hit execute.
 
-  <br/>![image](img/MSAMSMAMS/swaggerGetStudent.PNG)<br/>
+  <br/>![image](img/swaggerGetStudent.PNG)<br/>
 
   Notice that there is a Values controller shown in the Swagger UI under Students? That's the default controller the API creates. We can get rid of it simply by deleting ```Controllers/ValuesController.cs``` in Visual Studio.
 
+  Now upload your API source code to GitHub and you are done!
+
+  ## 5.1 Future learning path (Optional)
+  If you would like to learn more about API and Databases, I would recommend you to build a relational database and use LINQ in ASP.NET Core to get information between the tables. Make something creative, make something useful. Maybe a database that can hold your blogs, or maybe a database that holds your digital diary. The possibility with databases and APIs are endless. Doing this will give you a head start in phase 2!
+
+
   ## 6. Submission Criteria:
+  All screenshots should be saved on your GitHub repo under the a folder called "screenshots"
   1) Screenshots of your SQL Database through Query Editor via Azure Portal 
   2) Screenshots of your Swagger UI showing your RESTful API
-  3) Link to your GitHub Repo
+  3) Screenshots of your azure fundamental dashboard on Microsoft learn showing 8 green ticks
+  4) Link to your GitHub Repo
+  
+  Your GitHub submission should look like this:
+  <br/>![image](img/githubScreenshot.PNG)<br/>
